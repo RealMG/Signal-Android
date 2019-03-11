@@ -145,6 +145,8 @@
   <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">เพื่อที่จะถ่ายรูปหรือวิดีโอได้ Signal ต้องได้รับอนุญาตให้เข้าถึงกล้อง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"กล้อง\"</string>
   <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal ต้องได้รับอนุญาตให้เข้าถึงกล้องเพื่อถ่ายรูปและวิดีโอ</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
+  <string name="ConversationActivity_yes">ใช่</string>
+  <string name="ConversationActivity_no">ไม่</string>
   <!--ConversationAdapter-->
   <plurals name="ConversationAdapter_n_unread_messages">
     <item quantity="other">%d ข้อความที่ยังไม่ได้อ่าน</item>
@@ -207,6 +209,7 @@
   <string name="CreateProfileActivity_problem_setting_profile">ปัญหาการตั้งค่าโปรไฟล์</string>
   <string name="CreateProfileActivity_profile_photo">รูปโปรไฟล์</string>
   <string name="CreateProfileActivity_too_long">ยาวเกินไป</string>
+  <string name="CreateProfileActivity_profile_name">ชื่อโปรไฟล์</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">ใช้ค่าที่กำหนดเอง: %s</string>
   <string name="CustomDefaultPreference_using_default">ใช้ค่าเริ่มต้น: %s</string>
@@ -254,6 +257,8 @@
   <string name="ExperienceUpgradeActivity_ready_for_your_closeup">พร้อมเข้ามาใกล้ๆ หรือยัง</string>
   <string name="ExperienceUpgradeActivity_now_you_can_share_a_profile_photo_and_name_with_friends_on_signal">ตอนนี้คุณสามารถแบ่งปันรูปโปรไฟล์และชื่อให้กับเพื่อนบน Signal</string>
   <string name="ExperienceUpgradeActivity_signal_profiles_are_here">โปรไฟล์ของ Signal อยู่ที่นี่</string>
+  <string name="ExperienceUpgradeActivity_no_thanks">ไม่ ขอบคุณ</string>
+  <string name="ExperienceUpgradeActivity_got_it">เข้าใจแล้ว</string>
   <!--GcmBroadcastReceiver-->
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">การสื่อสารของ Signal ล้มเหลวอย่างถาวร</string>
@@ -308,6 +313,7 @@
   <!--MessageDetailsRecipient-->
   <string name="MessageDetailsRecipient_failed_to_send">การส่งล้มเหลว</string>
   <string name="MessageDetailsRecipient_new_safety_number">รหัสความปลอดภัยใหม่</string>
+  <!--LongMessageActivity-->
   <!--MessageRetrievalService-->
   <string name="MessageRetrievalService_signal">Signal</string>
   <string name="MessageRetrievalService_background_connection_enabled">เปิดใช้งานให้การเชื่อมต่อทำงานเบื้องหลัง</string>
@@ -338,6 +344,11 @@
   <string name="NotificationMmsMessageRecord_multimedia_message">ข้อความมัลติมีเดีย</string>
   <string name="NotificationMmsMessageRecord_downloading_mms_message">กำลังดาวน์โหลดข้อความ MMS</string>
   <string name="NotificationMmsMessageRecord_error_downloading_mms_message">เกิดข้อผิดพลาดระหว่างดาวน์โหลด MMS แตะเพื่อลองใหม่</string>
+  <!--MediaPickerActivity-->
+  <!--MediaPickerItemFragment-->
+  <!--MediaSendActivity-->
+  <!--MediaRepository-->
+  <string name="MediaRepository_all_media">สื่อทั้งหมด</string>
   <!--MessageRecord-->
   <string name="MessageRecord_message_encrypted_with_a_legacy_protocol_version_that_is_no_longer_supported">ได้รับข้อความที่เข้ารหัสด้วย Signal รุ่นเก่าที่ไม่รองรับอีกต่อไปแล้ว โปรดขอให้ผู้ส่งอัพเดตแอปเป็นเวอร์ชันล่าสุดและส่งข้อความอีกครั้ง</string>
   <string name="MessageRecord_left_group">คุณได้ออกจากกลุ่ม</string>
@@ -452,6 +463,9 @@
   <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signal ต้องการเข้าถึงสื่อและผู้ติดต่อที่คุณติดต่อด้วย เพื่อที่จะเชื่อมต่อคุณกับเพื่อน แลกเปลี่ยนข้อความ และโทรหากันแบบปลอดภัย</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">ไม่สามารถเชื่อมต่อบริการได้ โปรดตรวจสอบการเชื่อมต่อเครือข่ายและลองอีกครั้ง</string>
   <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">เพื่อให้สามารถยืนยันหมายเลขโทรศัพท์ของคุณได้โดยง่าย Signal สามารถตรวจหารหัสการยืนยันโดยอัตโนมัติ ถ้าคุณอนุญาตให้ Signal อ่านข้อความ SMS ของคุณได้</string>
+  <string name="RegistrationActivity_next">ต่อไป</string>
+  <string name="RegistrationActivity_continue">ดำเนินการต่อ</string>
+  <string name="RegistrationActivity_call">โทร</string>
   <!--ScribbleActivity-->
   <string name="ScribbleActivity_save_failure">บันทึกการเปลี่ยนแปลงของภาพล้มเหลว</string>
   <!--Search-->
@@ -1132,11 +1146,7 @@
   <string name="ChatsPreferenceFragment_in_progress">กำลังดำเนินการ</string>
   <string name="LocalBackupJob_creating_backup">กำลังสร้างการสำรองข้อมูล...</string>
   <string name="ProgressPreference_d_messages_so_far">%d ข้อความจนถึงตอนนี้</string>
-  <string name="RegistrationActivity_verify_s">ยืนยัน %s</string>
   <string name="RegistrationActivity_please_enter_the_verification_code_sent_to_s">กรุณาใส่รหัสยืนยันเพื่อส่งไปที่ %s</string>
-  <string name="RegistrationActivity_wrong_number">หมายเลขไม่ถูกต้องหรือ</string>
-  <string name="RegistrationActivity_call_me_instead">โทรหาฉันแทน</string>
-  <string name="RegistrationActivity_available_in">มีแล้วใน:\u0020</string>
   <string name="BackupUtil_never">ไม่เลย</string>
   <string name="BackupUtil_unknown">ไม่ทราบ</string>
   <string name="preferences_app_protection__screen_lock">ล็อกหน้าจอ</string>
@@ -1174,7 +1184,6 @@
   <string name="RegistrationLockDialog_error_connecting_to_the_service">เกิดข้อผิดพลาดในการเชื่อมต่อกับบริการ</string>
   <string name="RegistrationLockDialog_disable_registration_lock_pin">ปิดใช้งานรหัส PIN ล็อกการลงทะเบียนหรือไม่</string>
   <string name="RegistrationLockDialog_disable">ปิดใช้งาน</string>
-  <string name="RegistrationActivity_continue">ดำเนินการต่อ</string>
   <string name="preferences_chats__backups">การสำรองข้อมูล</string>
   <string name="prompt_passphrase_activity__signal_is_locked">Signal ได้ถูกล็อก</string>
   <string name="prompt_passphrase_activity__tap_to_unlock">แตะเพื่อปลดล็อก</string>

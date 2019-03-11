@@ -46,11 +46,15 @@ public class MediaDatabase extends Database {
         + "WHERE " + AttachmentDatabase.MMS_ID + " IN (SELECT " + MmsSmsColumns.ID
         + " FROM " + MmsDatabase.TABLE_NAME
         + " WHERE " + MmsDatabase.THREAD_ID + " = ?) AND (%s) AND "
-        + AttachmentDatabase.DATA + " IS NOT NULL "
+        + AttachmentDatabase.DATA + " IS NOT NULL AND "
+        + AttachmentDatabase.QUOTE + " = 0 "
         + "ORDER BY " + AttachmentDatabase.TABLE_NAME + "." + AttachmentDatabase.ROW_ID + " DESC";
 
   private static final String GALLERY_MEDIA_QUERY  = String.format(BASE_MEDIA_QUERY, AttachmentDatabase.CONTENT_TYPE + " LIKE 'image/%' OR " + AttachmentDatabase.CONTENT_TYPE + " LIKE 'video/%'");
-  private static final String DOCUMENT_MEDIA_QUERY = String.format(BASE_MEDIA_QUERY, AttachmentDatabase.CONTENT_TYPE + " NOT LIKE 'image/%' AND " + AttachmentDatabase.CONTENT_TYPE + " NOT LIKE 'video/%' AND " + AttachmentDatabase.CONTENT_TYPE + " NOT LIKE 'audio/%'");
+  private static final String DOCUMENT_MEDIA_QUERY = String.format(BASE_MEDIA_QUERY, AttachmentDatabase.CONTENT_TYPE + " NOT LIKE 'image/%' AND " +
+                                                                                     AttachmentDatabase.CONTENT_TYPE + " NOT LIKE 'video/%' AND " +
+                                                                                     AttachmentDatabase.CONTENT_TYPE + " NOT LIKE 'audio/%' AND " +
+                                                                                     AttachmentDatabase.CONTENT_TYPE + " NOT LIKE 'text/x-signal-plain'");
 
   MediaDatabase(Context context, SQLCipherOpenHelper databaseHelper) {
     super(context, databaseHelper);
@@ -85,9 +89,7 @@ public class MediaDatabase extends Database {
     private final long               date;
     private final boolean            outgoing;
 
-    // TODO: Make private again
-    public MediaRecord(DatabaseAttachment attachment, @Nullable Address address, long date, boolean outgoing) {
-//    private MediaRecord(DatabaseAttachment attachment, @Nullable Address address, long date, boolean outgoing) {
+    private MediaRecord(DatabaseAttachment attachment, @Nullable Address address, long date, boolean outgoing) {
       this.attachment = attachment;
       this.address    = address;
       this.date       = date;

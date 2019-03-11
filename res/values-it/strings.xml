@@ -6,9 +6,11 @@
   <string name="delete">Cancella</string>
   <string name="please_wait">Attendere...</string>
   <string name="save">Salva</string>
+  <string name="note_to_self">Note personali</string>
   <!--AbstractNotificationBuilder-->
   <string name="AbstractNotificationBuilder_new_message">Nuovo messaggio</string>
   <!--AlbumThumbnailView-->
+  <string name="AlbumThumbnailView_plus">\+%d</string>
   <!--ApplicationPreferencesActivity-->
   <string name="ApplicationPreferencesActivity_currently_s">In questo momento: %s</string>
   <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Non hai ancora impostato una password!</string>
@@ -153,6 +155,11 @@
   <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal richiede l\'autorizzazione all\'uso della fotocamera per scattare foto o registrare video, ma è stata negata in modo permanente. Si prega di continuare al menu delle impostazioni dell\'app, selezionare \"Autorizzazioni\" e abilitare \"Fotocamera\".</string>
   <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal richiede l\'autorizzazione all\'uso della fotocamera per scattare foto o registrare video</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
+  <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal non può inviare SMS/MMS perchè non è la tua app predefinita per sms. Vuoi cambiare questa cosa nelle impostazioni di Android?</string>
+  <string name="ConversationActivity_yes">Sì</string>
+  <string name="ConversationActivity_no">No</string>
+  <string name="ConversationActivity_search_position">%1$d di %2$d</string>
+  <string name="ConversationActivity_no_results">Nessun risultato</string>
   <!--ConversationAdapter-->
   <plurals name="ConversationAdapter_n_unread_messages">
     <item quantity="one">%d messaggio non letto</item>
@@ -226,6 +233,8 @@
   <string name="CreateProfileActivity_problem_setting_profile">Errore nella configurazione del profilo</string>
   <string name="CreateProfileActivity_profile_photo">Foto del profilo</string>
   <string name="CreateProfileActivity_too_long">Troppo lungo</string>
+  <string name="CreateProfileActivity_profile_name">Nome profilo</string>
+  <string name="CreateProfileActivity_set_up_your_profile">Imposta il tuo profilo</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Utilizzo di personalizzato: %s</string>
   <string name="CustomDefaultPreference_using_default">Utilizzo di predefinito: %s</string>
@@ -273,6 +282,17 @@
   <string name="ExperienceUpgradeActivity_ready_for_your_closeup">Pronto per il tuo primo piano?</string>
   <string name="ExperienceUpgradeActivity_now_you_can_share_a_profile_photo_and_name_with_friends_on_signal">Ora puoi condividere una foto profilo e un nome con i tuoi amici su Signal</string>
   <string name="ExperienceUpgradeActivity_signal_profiles_are_here">I profili Signal sono arrivati</string>
+  <string name="ExperienceUpgradeActivity_introducing_typing_indicators">Ti presentiamo gli indicatori di scrittura</string>
+  <string name="ExperienceUpgradeActivity_now_you_can_optionally_see_and_share_when_messages_are_being_typed">Ora puoi facoltativamente vedere e condividere quando i messaggi vengono digitati.</string>
+  <string name="ExperienceUpgradeActivity_would_you_like_to_enable_them_now">Vuoi attivarli adesso?</string>
+  <string name="ExperienceUpgradeActivity_typing_ui_title">Sono arrivati gli indicatori di scrittura</string>
+  <string name="ExperienceUpgradeActivity_enable_typing_indicators">Attiva indicatori di scrittura</string>
+  <string name="ExperienceUpgradeActivity_turn_on_typing_indicators">Attiva gli indicatori di scrittura</string>
+  <string name="ExperienceUpgradeActivity_no_thanks">No grazie</string>
+  <string name="ExperienceUpgradeActivity_introducing_link_previews">Ti presentiamo le anteprime dei link.</string>
+  <string name="ExperienceUpgradeActivity_optional_link_previews_are_now_supported">Le anteprime facoltative dei link sono ora supportate per alcuni dei siti internet più famosi.</string>
+  <string name="ExperienceUpgradeActivity_you_can_disable_or_enable_this_feature_link_previews">Puoi disattivare o attivare questa funzione in qualsiasi momento nelle impostazioni di Signal (Privacy &gt; Invia anteprime dei link).</string>
+  <string name="ExperienceUpgradeActivity_got_it">Capito</string>
   <!--GcmBroadcastReceiver-->
   <string name="GcmBroadcastReceiver_retrieving_a_message">Reperimento di un messaggio...</string>
   <!--GcmRefreshJob-->
@@ -332,6 +352,7 @@ I suoi messaggi e le chiamate sono state disabilitate, si prega di provare e ri-
   <!--MessageDetailsRecipient-->
   <string name="MessageDetailsRecipient_failed_to_send">Invio fallito</string>
   <string name="MessageDetailsRecipient_new_safety_number">Nuovo codice di sicurezza</string>
+  <!--LongMessageActivity-->
   <!--MessageRetrievalService-->
   <string name="MessageRetrievalService_signal">Signal</string>
   <string name="MessageRetrievalService_background_connection_enabled">Connessione in background attivata</string>
@@ -364,6 +385,19 @@ I suoi messaggi e le chiamate sono state disabilitate, si prega di provare e ri-
   <string name="NotificationMmsMessageRecord_multimedia_message">Messaggio multimediale</string>
   <string name="NotificationMmsMessageRecord_downloading_mms_message">Scarico MMS</string>
   <string name="NotificationMmsMessageRecord_error_downloading_mms_message">Errore nello scaricare MMS, premi per riprovare</string>
+  <!--MediaPickerActivity-->
+  <string name="MediaPickerActivity_send_to">Invia a %s</string>
+  <!--MediaPickerItemFragment-->
+  <string name="MediaPickerItemFragment_tap_to_select">Tocca per selezionare</string>
+  <plurals name="MediaPickerItemFragment_cant_share_more_than_n_items">
+    <item quantity="one">Non puoi condividere più di %d elemento.</item>
+    <item quantity="other">Non puoi condividere più di %d elementi.</item>
+  </plurals>
+  <!--MediaSendActivity-->
+  <string name="MediaSendActivity_add_a_caption">Aggiungi una didascalia...</string>
+  <string name="MediaSendActivity_an_item_was_removed_because_it_exceeded_the_size_limit">Un elemento è stato rimosso perchè supera la dimensione massima</string>
+  <!--MediaRepository-->
+  <string name="MediaRepository_all_media">Tutti i file multimediali</string>
   <!--MessageRecord-->
   <string name="MessageRecord_message_encrypted_with_a_legacy_protocol_version_that_is_no_longer_supported">Hai ricevuto un messaggio cifrato usando una vecchia versione di Signal che non è più supportata. Ti preghiamo di chiedere al mittente di aggiornare l\'app e rimandare il messaggio.</string>
   <string name="MessageRecord_left_group">Hai lasciato il gruppo.</string>
@@ -484,6 +518,12 @@ proprio numero di telefono</string>
     <item quantity="one">Ti manca solo %d passo per inviare un log di debug.</item>
     <item quantity="other">Ti mancano solo %d passi per inviare un log di debug.</item>
   </plurals>
+  <string name="RegistrationActivity_we_need_to_verify_that_youre_human">Dobbiamo verificare che sei umano.</string>
+  <string name="RegistrationActivity_failed_to_verify_the_captcha">Verifica del CAPTCHA fallita</string>
+  <string name="RegistrationActivity_next">Avanti</string>
+  <string name="RegistrationActivity_continue">Continua</string>
+  <string name="RegistrationActivity_enter_your_phone_number_to_get_started">Inserisci il tuo numero di telefono per iniziare</string>
+  <string name="RegistrationActivity_call">Chiama</string>
   <!--ScribbleActivity-->
   <string name="ScribbleActivity_save_failure">Salvataggio modifiche all\'immagine fallito</string>
   <!--Search-->
@@ -627,6 +667,10 @@ Ricevuto un messaggio di scambio chiavi per una versione di protocollo non valid
   <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Nuovo messaggio</string>
   <!--TransferControlView-->
+  <plurals name="TransferControlView_n_items">
+    <item quantity="one">%d elemento</item>
+    <item quantity="other">%d elementi</item>
+  </plurals>
   <!--UnauthorizedReminder-->
   <string name="UnauthorizedReminder_device_no_longer_registered">Dispositivo non più registrato</string>
   <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Probabilmente perchè hai registrato il numero di telefono con Signal su un altro dispositivo. Tocca per registrare di nuovo.</string>
@@ -935,6 +979,8 @@ Ricevuto un messaggio di scambio chiavi per una versione di protocollo non valid
   <string name="preferences__use_signal_for_viewing_and_storing_all_incoming_multimedia_messages">Usa Signal per tutti i messaggi multimediali in arrivo</string>
   <string name="preferences__pref_enter_sends_title">Spedisci premendo Invio</string>
   <string name="preferences__pressing_the_enter_key_will_send_text_messages">Il tasto Invio manderà il messaggio</string>
+  <string name="preferences__send_link_previews">Invia anteprime dei link</string>
+  <string name="preferences__previews_are_supported_for">Le anteprime sono supportate per i link di Imgur, Instagram, Reddit e YouTube</string>
   <string name="preferences__choose_identity">Scegli identità</string>
   <string name="preferences__choose_your_contact_entry_from_the_contacts_list">Scegli il tuo contatto dalla rubrica.</string>
   <string name="preferences__change_passphrase">Cambia password</string>
@@ -1004,6 +1050,8 @@ Ricevuto un messaggio di scambio chiavi per una versione di protocollo non valid
   <string name="preferences__incognito_keyboard">Tastiera in incognito</string>
   <string name="preferences__read_receipts">Conferme di lettura</string>
   <string name="preferences__if_read_receipts_are_disabled_you_wont_be_able_to_see_read_receipts">Se le conferme di lettura sono disabilitate, non sarai in grado di vedere le conferme di lettura da altri.</string>
+  <string name="preferences__typing_indicators">Indicatori di scrittura</string>
+  <string name="preferences__if_typing_indicators_are_disabled_you_wont_be_able_to_see_typing_indicators">Se gli indicatori di scrittura sono disabilitati, non sarai in grado di vedere quando gli altri utenti stanno digitando.</string>
   <string name="preferences__request_keyboard_to_disable_personalized_learning">Richiedi alla tastiera di disattivare l\'apprendimento delle parole digitate</string>
   <string name="preferences_app_protection__blocked_contacts">Contatti bloccati</string>
   <string name="preferences_chats__when_using_mobile_data">Su rete cellulare</string>
@@ -1186,11 +1234,7 @@ Ricevuto un messaggio di scambio chiavi per una versione di protocollo non valid
   <string name="ChatsPreferenceFragment_in_progress">In corso</string>
   <string name="LocalBackupJob_creating_backup">Creazione backup...</string>
   <string name="ProgressPreference_d_messages_so_far">Ancora %d messaggi</string>
-  <string name="RegistrationActivity_verify_s">Verifica %s</string>
   <string name="RegistrationActivity_please_enter_the_verification_code_sent_to_s">Per favore inserire il codice di verifica inviato a %s.</string>
-  <string name="RegistrationActivity_wrong_number">Numero errato?</string>
-  <string name="RegistrationActivity_call_me_instead">Chiamami</string>
-  <string name="RegistrationActivity_available_in">Disponibile in:\u0020</string>
   <string name="BackupUtil_never">Mai</string>
   <string name="BackupUtil_unknown">Sconosciuto</string>
   <string name="preferences_app_protection__screen_lock">Blocco schermo</string>
@@ -1228,7 +1272,6 @@ Ricevuto un messaggio di scambio chiavi per una versione di protocollo non valid
   <string name="RegistrationLockDialog_error_connecting_to_the_service">Errore durante la connessione al servizio</string>
   <string name="RegistrationLockDialog_disable_registration_lock_pin">Disabilitare PIN di blocco registrazione?</string>
   <string name="RegistrationLockDialog_disable">Disabilita</string>
-  <string name="RegistrationActivity_continue">Continua</string>
   <string name="preferences_chats__backups">Backup</string>
   <string name="prompt_passphrase_activity__signal_is_locked">Signal è bloccato</string>
   <string name="prompt_passphrase_activity__tap_to_unlock">TAPPA PER SBLOCCARE</string>

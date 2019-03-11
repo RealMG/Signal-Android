@@ -18,6 +18,7 @@ package org.thoughtcrime.securesms.notifications;
 
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -38,7 +39,7 @@ import android.support.v4.app.NotificationManagerCompat;
 import android.text.TextUtils;
 import org.thoughtcrime.securesms.logging.Log;
 
-import org.thoughtcrime.securesms.ConversationActivity;
+import org.thoughtcrime.securesms.conversation.ConversationActivity;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.contactshare.ContactUtil;
 import org.thoughtcrime.securesms.contactshare.Contact;
@@ -288,8 +289,11 @@ public class MessageNotifier {
                                                    @NonNull  NotificationState notificationState,
                                                    boolean signal, boolean bundled)
   {
+    Log.i(TAG, "sendSingleThreadNotification()  signal: " + signal + "  bundled: " + bundled);
+
     if (notificationState.getNotifications().isEmpty()) {
       if (!bundled) cancelActiveNotifications(context);
+      Log.i(TAG, "Empty notification state. Skipping.");
       return;
     }
 
@@ -304,9 +308,9 @@ public class MessageNotifier {
     builder.setPrimaryMessageBody(recipient, notifications.get(0).getIndividualRecipient(),
                                   notifications.get(0).getText(), notifications.get(0).getSlideDeck());
     builder.setContentIntent(notifications.get(0).getPendingIntent(context));
-    builder.setGroup(NOTIFICATION_GROUP);
     builder.setDeleteIntent(notificationState.getDeleteIntent(context));
     builder.setOnlyAlertOnce(!signal);
+    builder.setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_SUMMARY);
 
     long timestamp = notifications.get(0).getTimestamp();
     if (timestamp != 0) builder.setWhen(timestamp);
@@ -332,16 +336,21 @@ public class MessageNotifier {
     }
 
     if (bundled) {
+      builder.setGroup(NOTIFICATION_GROUP);
       builder.setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_SUMMARY);
     }
 
-    NotificationManagerCompat.from(context).notify(notificationId, builder.build());
+    Notification notification = builder.build();
+    NotificationManagerCompat.from(context).notify(notificationId, notification);
+    Log.i(TAG, "Posted notification. " + notification.toString());
   }
 
   private static void sendMultipleThreadNotification(@NonNull  Context context,
                                                      @NonNull  NotificationState notificationState,
                                                      boolean signal)
   {
+    Log.i(TAG, "sendMultiThreadNotification()  signal: " + signal);
+
     MultipleRecipientNotificationBuilder builder       = new MultipleRecipientNotificationBuilder(context, TextSecurePreferences.getNotificationPrivacy(context));
     List<NotificationItem>               notifications = notificationState.getNotifications();
 
@@ -370,7 +379,9 @@ public class MessageNotifier {
                         notifications.get(0).getText());
     }
 
+    Notification notification = builder.build();
     NotificationManagerCompat.from(context).notify(SUMMARY_NOTIFICATION_ID, builder.build());
+    Log.i(TAG, "Posted notification. " + notification.toString());
   }
 
   private static void sendInThreadNotification(Context context, Recipient recipient) {

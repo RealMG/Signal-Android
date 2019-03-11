@@ -3,9 +3,9 @@ package org.thoughtcrime.securesms.jobs;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import org.thoughtcrime.securesms.database.MessagingDatabase.SyncMessageId;
 import org.thoughtcrime.securesms.database.RecipientDatabase.UnidentifiedAccessMode;
 import org.thoughtcrime.securesms.jobmanager.SafeData;
-import org.thoughtcrime.securesms.logging.Log;
 
 import org.thoughtcrime.securesms.ApplicationContext;
 import org.thoughtcrime.securesms.crypto.UnidentifiedAccessUtil;
@@ -26,6 +26,7 @@ import org.whispersystems.signalservice.api.SignalServiceMessageSender;
 import org.whispersystems.signalservice.api.crypto.UnidentifiedAccessPair;
 import org.whispersystems.signalservice.api.crypto.UntrustedIdentityException;
 import org.whispersystems.signalservice.api.messages.SignalServiceDataMessage;
+import org.whispersystems.signalservice.api.messages.multidevice.SignalServiceSyncMessage;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 import org.whispersystems.signalservice.api.push.exceptions.UnregisteredUserException;
 
@@ -69,7 +70,6 @@ public class PushTextSendJob extends PushSendJob implements InjectableType {
 
   @Override
   public void onAdded() {
-    Log.i(TAG, "onAdded() messageId: " + messageId);
     DatabaseFactory.getSmsDatabase(context).markAsSending(messageId);
   }
 
@@ -80,12 +80,12 @@ public class PushTextSendJob extends PushSendJob implements InjectableType {
     SmsMessageRecord       record            = database.getMessage(messageId);
 
     if (!record.isPending() && !record.isFailed()) {
-      Log.w(TAG, "Message " + messageId + " was already sent. Ignoring.");
+      warn(TAG, "Message " + messageId + " was already sent. Ignoring.");
       return;
     }
 
     try {
-      Log.i(TAG, "Sending message: " + messageId);
+      log(TAG, "Sending message: " + messageId);
 
       Recipient              recipient  = record.getRecipient().resolve();
       byte[]                 profileKey = recipient.getProfileKey();
@@ -96,15 +96,21 @@ public class PushTextSendJob extends PushSendJob implements InjectableType {
       database.markAsSent(messageId, true);
       database.markUnidentified(messageId, unidentified);
 
+      if (recipient.isLocalNumber()) {
+        SyncMessageId id = new SyncMessageId(recipient.getAddress(), record.getDateSent());
+        DatabaseFactory.getMmsSmsDatabase(context).incrementDeliveryReceiptCount(id, System.currentTimeMillis());
+        DatabaseFactory.getMmsSmsDatabase(context).incrementReadReceiptCount(id, System.currentTimeMillis());
+      }
+
       if (TextSecurePreferences.isUnidentifiedDeliveryEnabled(context)) {
         if (unidentified && accessMode == UnidentifiedAccessMode.UNKNOWN && profileKey == null) {
-          Log.i(TAG, "Marking recipient as UD-unrestricted following a UD send.");
+          log(TAG, "Marking recipient as UD-unrestricted following a UD send.");
           DatabaseFactory.getRecipientDatabase(context).setUnidentifiedAccessMode(recipient, UnidentifiedAccessMode.UNRESTRICTED);
         } else if (unidentified && accessMode == UnidentifiedAccessMode.UNKNOWN) {
-          Log.i(TAG, "Marking recipient as UD-enabled following a UD send.");
+          log(TAG, "Marking recipient as UD-enabled following a UD send.");
           DatabaseFactory.getRecipientDatabase(context).setUnidentifiedAccessMode(recipient, UnidentifiedAccessMode.ENABLED);
         } else if (!unidentified && accessMode != UnidentifiedAccessMode.DISABLED) {
-          Log.i(TAG, "Marking recipient as UD-disabled following a non-UD send.");
+          log(TAG, "Marking recipient as UD-disabled following a non-UD send.");
           DatabaseFactory.getRecipientDatabase(context).setUnidentifiedAccessMode(recipient, UnidentifiedAccessMode.DISABLED);
         }
       }
@@ -114,15 +120,15 @@ public class PushTextSendJob extends PushSendJob implements InjectableType {
         expirationManager.scheduleDeletion(record.getId(), record.isMms(), record.getExpiresIn());
       }
 
-      Log.i(TAG, "Sent message: " + messageId);
+      log(TAG, "Sent message: " + messageId);
 
     } catch (InsecureFallbackApprovalException e) {
-      Log.w(TAG, e);
+      warn(TAG, "Failure", e);
       database.markAsPendingInsecureSmsFallback(record.getId());
       MessageNotifier.notifyMessageDeliveryFailed(context, record.getRecipient(), record.getThreadId());
       ApplicationContext.getInstance(context).getJobManager().add(new DirectoryRefreshJob(context, false));
     } catch (UntrustedIdentityException e) {
-      Log.w(TAG, e);
+      warn(TAG, "Failure", e);
       database.addMismatchedIdentity(record.getId(), Address.fromSerialized(e.getE164Number()), e.getIdentityKey());
       database.markAsSentFailed(record.getId());
       database.markAsPush(record.getId());
@@ -158,7 +164,7 @@ public class PushTextSendJob extends PushSendJob implements InjectableType {
       Optional<byte[]>                 profileKey         = getProfileKey(message.getIndividualRecipient());
       Optional<UnidentifiedAccessPair> unidentifiedAccess = UnidentifiedAccessUtil.getAccessFor(context, message.getIndividualRecipient());
 
-      Log.w(TAG, "Have access key to use: " + unidentifiedAccess.isPresent());
+      log(TAG, "Have access key to use: " + unidentifiedAccess.isPresent());
 
       SignalServiceDataMessage textSecureMessage = SignalServiceDataMessage.newBuilder()
                                                                            .withTimestamp(message.getDateSent())
@@ -168,12 +174,20 @@ public class PushTextSendJob extends PushSendJob implements InjectableType {
                                                                            .asEndSessionMessage(message.isEndSession())
                                                                            .build();
 
-      return messageSender.sendMessage(address, unidentifiedAccess, textSecureMessage).getSuccess().isUnidentified();
+      if (address.getNumber().equals(TextSecurePreferences.getLocalNumber(context))) {
+        Optional<UnidentifiedAccessPair> syncAccess  = UnidentifiedAccessUtil.getAccessForSync(context);
+        SignalServiceSyncMessage         syncMessage = buildSelfSendSyncMessage(context, textSecureMessage, syncAccess);
+
+        messageSender.sendMessage(syncMessage, syncAccess);
+        return syncAccess.isPresent();
+      } else {
+        return messageSender.sendMessage(address, unidentifiedAccess, textSecureMessage).getSuccess().isUnidentified();
+      }
     } catch (UnregisteredUserException e) {
-      Log.w(TAG, e);
+      warn(TAG, "Failure", e);
       throw new InsecureFallbackApprovalException(e);
     } catch (IOException e) {
-      Log.w(TAG, e);
+      warn(TAG, "Failure", e);
       throw new RetryLaterException(e);
     }
   }
